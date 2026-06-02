@@ -97,7 +97,7 @@
         opacity: 1;
         transform: translateY(0);
       }
-      
+
       /* Micro-interactions */
       .btn-hover-effect {
         transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -109,6 +109,13 @@
       }
       .btn-hover-effect:active {
         transform: scale(0.98);
+      }
+      .btn-hover-effect:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+        filter: none;
       }
 
       /* Scale-in animation for image */
@@ -148,9 +155,9 @@
 <a class="text-slate-600 hover:text-accent transition-colors duration-300 font-medium" href="#">Venue</a>
 <a class="text-slate-600 hover:text-accent transition-colors duration-300 font-medium" href="#">About</a>
 </div>
-<button class="btn-hover-effect bg-primary text-on-primary font-medium px-6 py-2 rounded-lg text-sm">
+<a href="#contact-form" class="btn-hover-effect bg-primary text-on-primary font-medium px-6 py-2 rounded-lg text-sm inline-block">
             Register Now
-        </button>
+        </a>
 </div>
 </nav>
 <main class="pt-20">
@@ -180,30 +187,44 @@
 </div>
 </div>
 <!-- Registration Form -->
-<div class="lg:col-span-5 reveal active" style="transition-delay: 0.2s;">
+<div id="contact-form" class="lg:col-span-5 reveal active scroll-mt-28" style="transition-delay: 0.2s;">
 <div class="glass-effect p-8 md:p-10 rounded-2xl shadow-2xl border border-white/20">
+<!-- Form view -->
+<div id="form-view">
 <h3 class="font-headline text-2xl text-primary mb-2">Sichern Sie sich Ihren Platz</h3>
 <p class="text-slate-600 text-sm mb-8 font-medium">Begrenzte Plätze für qualifizierte Bewerber.</p>
-<form class="space-y-4">
+<form id="registration-form" class="space-y-4" novalidate>
 <div>
-<label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">Name</label>
-<input class="w-full bg-white border-slate-200 rounded-lg py-3 px-4 focus:ring-2 focus:ring-accent focus:border-accent text-on-surface placeholder-slate-400 outline-none transition-all" placeholder="Vor- und Nachname" type="text"/>
+<label for="rf-name" class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">Name</label>
+<input id="rf-name" name="name" required class="w-full bg-white border-slate-200 rounded-lg py-3 px-4 focus:ring-2 focus:ring-accent focus:border-accent text-on-surface placeholder-slate-400 outline-none transition-all" placeholder="Vor- und Nachname" type="text"/>
 </div>
 <div>
-<label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">Unternehmensname</label>
-<input class="w-full bg-white border-slate-200 rounded-lg py-3 px-4 focus:ring-2 focus:ring-accent focus:border-accent text-on-surface placeholder-slate-400 outline-none transition-all" placeholder="Ihr Unternehmen GmbH" type="text"/>
+<label for="rf-company" class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">Unternehmensname</label>
+<input id="rf-company" name="company" required class="w-full bg-white border-slate-200 rounded-lg py-3 px-4 focus:ring-2 focus:ring-accent focus:border-accent text-on-surface placeholder-slate-400 outline-none transition-all" placeholder="Ihr Unternehmen GmbH" type="text"/>
 </div>
 <div>
-<label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">Email</label>
-<input class="w-full bg-white border-slate-200 rounded-lg py-3 px-4 focus:ring-2 focus:ring-accent focus:border-accent text-on-surface placeholder-slate-400 outline-none transition-all" placeholder="name@firma.de" type="email"/>
+<label for="rf-email" class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">Email</label>
+<input id="rf-email" name="email" required class="w-full bg-white border-slate-200 rounded-lg py-3 px-4 focus:ring-2 focus:ring-accent focus:border-accent text-on-surface placeholder-slate-400 outline-none transition-all" placeholder="name@firma.de" type="email"/>
 </div>
+<div id="form-error" class="hidden bg-error-container text-on-error-container text-sm rounded-lg px-4 py-3" role="alert"></div>
 <div class="pt-4">
-<button class="w-full btn-hover-effect bg-accent text-on-accent font-bold py-4 rounded-lg shadow-lg">
-                                Jetzt Registrieren
-                            </button>
+<button id="submit-btn" type="submit" class="w-full btn-hover-effect bg-accent text-on-accent font-bold py-4 rounded-lg shadow-lg">
+<span id="submit-label">Jetzt Registrieren</span>
+<span id="submit-loading" class="hidden">Wird gesendet …</span>
+</button>
 <p class="text-[10px] text-center text-slate-500 mt-4 leading-relaxed px-4">Wir glauben nicht an Standardlösungen. Jeder Programmpunkt ist handverlesen für maximale Leadership-Exzellenz.</p>
 </div>
 </form>
+</div>
+<!-- Success view -->
+<div id="success-view" class="hidden text-center py-6">
+<div class="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-6">
+<span class="material-symbols-outlined text-accent" style="font-size: 40px;">check_circle</span>
+</div>
+<h3 class="font-headline text-2xl text-primary mb-3">Vielen Dank!</h3>
+<p class="text-slate-600 leading-relaxed mb-2">Ihre Anmeldung ist bei uns eingegangen.</p>
+<p class="text-slate-500 text-sm leading-relaxed">Wir melden uns zeitnah persönlich bei Ihnen — bitte prüfen Sie auch Ihren Posteingang für die Bestätigungs-E-Mail.</p>
+</div>
 </div>
 </div>
 </div>
@@ -328,9 +349,9 @@
 <span class="text-accent text-sm font-bold uppercase tracking-wider">Verfügbar</span>
 </div>
 </div>
-<button class="w-full btn-hover-effect bg-accent text-on-accent font-bold py-4 rounded-lg shadow-lg">
+<a href="#contact-form" class="block text-center w-full btn-hover-effect bg-accent text-on-accent font-bold py-4 rounded-lg shadow-lg">
                             Jetzt Anmelden
-                        </button>
+                        </a>
 </div>
 </div>
 </div>
@@ -364,7 +385,7 @@
             if (entry.isIntersecting) {
                 entry.target.classList.add('active');
                 // Optional: stop observing once animated
-                // observer.unobserve(entry.target); 
+                // observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
@@ -381,5 +402,97 @@
             heroSection.querySelectorAll('.reveal').forEach(el => el.classList.add('active'));
         }
     });
+</script>
+
+<!-- ─────────────────────────────────────────────────────────────
+     Kontakt-Formular → Supabase Edge Function submit-contact-form
+     ───────────────────────────────────────────────────────────── -->
+<script>
+    (function () {
+        const ENDPOINT  = "https://usstijzdensmlyanlwxr.supabase.co/functions/v1/submit-contact-form";
+        const TENANT_ID = "adfe5b1a-742c-4120-9e74-6b97e94f8a5d";
+        const SUBJECT   = "Anmeldung Führung konkret";
+
+        const form        = document.getElementById("registration-form");
+        const formView    = document.getElementById("form-view");
+        const successView = document.getElementById("success-view");
+        const errorBox    = document.getElementById("form-error");
+        const submitBtn   = document.getElementById("submit-btn");
+        const submitLabel = document.getElementById("submit-label");
+        const submitLoad  = document.getElementById("submit-loading");
+
+        if (!form) return;
+
+        function showError(msg) {
+            errorBox.textContent = msg;
+            errorBox.classList.remove("hidden");
+        }
+        function clearError() {
+            errorBox.textContent = "";
+            errorBox.classList.add("hidden");
+        }
+        function setLoading(isLoading) {
+            submitBtn.disabled = isLoading;
+            submitLabel.classList.toggle("hidden", isLoading);
+            submitLoad.classList.toggle("hidden", !isLoading);
+        }
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            clearError();
+
+            const name    = form.elements["name"].value.trim();
+            const company = form.elements["company"].value.trim();
+            const email   = form.elements["email"].value.trim();
+
+            if (!name || !company || !email) {
+                showError("Bitte füllen Sie Name, Unternehmen und Email aus.");
+                return;
+            }
+            // simple email check
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                showError("Bitte geben Sie eine gültige E-Mail-Adresse an.");
+                return;
+            }
+
+            const nachricht =
+                "Anmeldung Führung konkret\n\n" +
+                "Name: "       + name    + "\n" +
+                "Unternehmen: "+ company + "\n" +
+                "Email: "      + email;
+
+            setLoading(true);
+            try {
+                const res = await fetch(ENDPOINT, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        tenant_id: TENANT_ID,
+                        name:      name,
+                        email:     email,
+                        nachricht: nachricht,
+                        subject:   SUBJECT,
+                    }),
+                });
+
+                if (!res.ok) {
+                    let detail = "";
+                    try {
+                        const j = await res.json();
+                        detail = j.error ? ": " + j.error : "";
+                    } catch (_) { /* ignore */ }
+                    throw new Error("Status " + res.status + detail);
+                }
+
+                // Erfolg → Inline-Bestätigung
+                formView.classList.add("hidden");
+                successView.classList.remove("hidden");
+            } catch (err) {
+                console.error("submit-contact-form Fehler:", err);
+                showError("Senden fehlgeschlagen. Bitte versuchen Sie es später erneut. (" + err.message + ")");
+                setLoading(false);
+            }
+        });
+    })();
 </script>
 </body></html>
